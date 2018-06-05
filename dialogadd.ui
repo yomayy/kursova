@@ -19,7 +19,7 @@
      <x>80</x>
      <y>30</y>
      <width>219</width>
-     <height>161</height>
+     <height>163</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -75,7 +75,14 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="DtxtPrice"/>
+       <widget class="QSpinBox" name="sbPrice">
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>10000</number>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
@@ -89,13 +96,23 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="DtxtYear"/>
+       <widget class="QSpinBox" name="sbYear">
+        <property name="minimum">
+         <number>1900</number>
+        </property>
+        <property name="maximum">
+         <number>2018</number>
+        </property>
+        <property name="value">
+         <number>2018</number>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>200</x>

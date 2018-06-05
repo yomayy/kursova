@@ -20,7 +20,7 @@
       <x>30</x>
       <y>370</y>
       <width>219</width>
-      <height>161</height>
+      <height>167</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -62,7 +62,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="txtLang"/>
+        <widget class="QComboBox" name="cmbLang"/>
        </item>
       </layout>
      </item>
@@ -76,7 +76,28 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="txtPrice"/>
+        <layout class="QHBoxLayout" name="horizontalLayout_8">
+         <item>
+          <widget class="QSpinBox" name="sbPriceFrom">
+           <property name="maximum">
+            <number>10000</number>
+           </property>
+           <property name="value">
+            <number>1</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="sbPriceTo">
+           <property name="maximum">
+            <number>10000</number>
+           </property>
+           <property name="value">
+            <number>500</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
       </layout>
      </item>
@@ -90,7 +111,34 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="txtYear"/>
+        <layout class="QHBoxLayout" name="horizontalLayout_9">
+         <item>
+          <widget class="QSpinBox" name="sbYearFrom">
+           <property name="minimum">
+            <number>1900</number>
+           </property>
+           <property name="maximum">
+            <number>2018</number>
+           </property>
+           <property name="value">
+            <number>2000</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="sbYearTo">
+           <property name="minimum">
+            <number>1900</number>
+           </property>
+           <property name="maximum">
+            <number>2018</number>
+           </property>
+           <property name="value">
+            <number>2018</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
       </layout>
      </item>
@@ -137,7 +185,7 @@
      </property>
     </column>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>90</x>
@@ -163,7 +211,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>270</x>

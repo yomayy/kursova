@@ -14,6 +14,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QCheckBox>
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
@@ -21,6 +22,7 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpinBox>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTreeWidget>
 #include <QtWidgets/QVBoxLayout>
@@ -42,23 +44,27 @@ public:
     QLineEdit *txtAuthor;
     QHBoxLayout *horizontalLayout_3;
     QLabel *label_3;
-    QLineEdit *txtLang;
+    QComboBox *cmbLang;
     QHBoxLayout *horizontalLayout_4;
     QLabel *label_4;
-    QLineEdit *txtPrice;
+    QHBoxLayout *horizontalLayout_8;
+    QSpinBox *sbPriceFrom;
+    QSpinBox *sbPriceTo;
     QHBoxLayout *horizontalLayout_5;
     QLabel *label_5;
-    QLineEdit *txtYear;
+    QHBoxLayout *horizontalLayout_9;
+    QSpinBox *sbYearFrom;
+    QSpinBox *sbYearTo;
     QWidget *layoutWidget_2;
     QHBoxLayout *horizontalLayout_6;
     QPushButton *btAdd;
     QPushButton *btDelete;
     QTreeWidget *treeWidget;
-    QWidget *widget;
+    QWidget *layoutWidget1;
     QVBoxLayout *verticalLayout_2;
     QPushButton *btSearch;
     QCheckBox *checkFav;
-    QWidget *widget1;
+    QWidget *layoutWidget2;
     QHBoxLayout *horizontalLayout_7;
     QPushButton *btFav;
     QPushButton *btUnsetFav;
@@ -74,7 +80,7 @@ public:
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         layoutWidget = new QWidget(centralwidget);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(30, 370, 219, 161));
+        layoutWidget->setGeometry(QRect(30, 370, 219, 167));
         verticalLayout = new QVBoxLayout(layoutWidget);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
@@ -115,10 +121,10 @@ public:
 
         horizontalLayout_3->addWidget(label_3);
 
-        txtLang = new QLineEdit(layoutWidget);
-        txtLang->setObjectName(QStringLiteral("txtLang"));
+        cmbLang = new QComboBox(layoutWidget);
+        cmbLang->setObjectName(QStringLiteral("cmbLang"));
 
-        horizontalLayout_3->addWidget(txtLang);
+        horizontalLayout_3->addWidget(cmbLang);
 
 
         verticalLayout->addLayout(horizontalLayout_3);
@@ -130,10 +136,24 @@ public:
 
         horizontalLayout_4->addWidget(label_4);
 
-        txtPrice = new QLineEdit(layoutWidget);
-        txtPrice->setObjectName(QStringLiteral("txtPrice"));
+        horizontalLayout_8 = new QHBoxLayout();
+        horizontalLayout_8->setObjectName(QStringLiteral("horizontalLayout_8"));
+        sbPriceFrom = new QSpinBox(layoutWidget);
+        sbPriceFrom->setObjectName(QStringLiteral("sbPriceFrom"));
+        sbPriceFrom->setMaximum(10000);
+        sbPriceFrom->setValue(1);
 
-        horizontalLayout_4->addWidget(txtPrice);
+        horizontalLayout_8->addWidget(sbPriceFrom);
+
+        sbPriceTo = new QSpinBox(layoutWidget);
+        sbPriceTo->setObjectName(QStringLiteral("sbPriceTo"));
+        sbPriceTo->setMaximum(10000);
+        sbPriceTo->setValue(500);
+
+        horizontalLayout_8->addWidget(sbPriceTo);
+
+
+        horizontalLayout_4->addLayout(horizontalLayout_8);
 
 
         verticalLayout->addLayout(horizontalLayout_4);
@@ -145,10 +165,26 @@ public:
 
         horizontalLayout_5->addWidget(label_5);
 
-        txtYear = new QLineEdit(layoutWidget);
-        txtYear->setObjectName(QStringLiteral("txtYear"));
+        horizontalLayout_9 = new QHBoxLayout();
+        horizontalLayout_9->setObjectName(QStringLiteral("horizontalLayout_9"));
+        sbYearFrom = new QSpinBox(layoutWidget);
+        sbYearFrom->setObjectName(QStringLiteral("sbYearFrom"));
+        sbYearFrom->setMinimum(1900);
+        sbYearFrom->setMaximum(2018);
+        sbYearFrom->setValue(2000);
 
-        horizontalLayout_5->addWidget(txtYear);
+        horizontalLayout_9->addWidget(sbYearFrom);
+
+        sbYearTo = new QSpinBox(layoutWidget);
+        sbYearTo->setObjectName(QStringLiteral("sbYearTo"));
+        sbYearTo->setMinimum(1900);
+        sbYearTo->setMaximum(2018);
+        sbYearTo->setValue(2018);
+
+        horizontalLayout_9->addWidget(sbYearTo);
+
+
+        horizontalLayout_5->addLayout(horizontalLayout_9);
 
 
         verticalLayout->addLayout(horizontalLayout_5);
@@ -175,34 +211,34 @@ public:
         treeWidget->setHeaderItem(__qtreewidgetitem);
         treeWidget->setObjectName(QStringLiteral("treeWidget"));
         treeWidget->setGeometry(QRect(30, 0, 911, 291));
-        widget = new QWidget(centralwidget);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(90, 550, 111, 71));
-        verticalLayout_2 = new QVBoxLayout(widget);
+        layoutWidget1 = new QWidget(centralwidget);
+        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(90, 550, 111, 71));
+        verticalLayout_2 = new QVBoxLayout(layoutWidget1);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         verticalLayout_2->setContentsMargins(0, 0, 0, 0);
-        btSearch = new QPushButton(widget);
+        btSearch = new QPushButton(layoutWidget1);
         btSearch->setObjectName(QStringLiteral("btSearch"));
 
         verticalLayout_2->addWidget(btSearch);
 
-        checkFav = new QCheckBox(widget);
+        checkFav = new QCheckBox(layoutWidget1);
         checkFav->setObjectName(QStringLiteral("checkFav"));
 
         verticalLayout_2->addWidget(checkFav);
 
-        widget1 = new QWidget(centralwidget);
-        widget1->setObjectName(QStringLiteral("widget1"));
-        widget1->setGeometry(QRect(270, 320, 168, 27));
-        horizontalLayout_7 = new QHBoxLayout(widget1);
+        layoutWidget2 = new QWidget(centralwidget);
+        layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
+        layoutWidget2->setGeometry(QRect(270, 320, 168, 27));
+        horizontalLayout_7 = new QHBoxLayout(layoutWidget2);
         horizontalLayout_7->setObjectName(QStringLiteral("horizontalLayout_7"));
         horizontalLayout_7->setContentsMargins(0, 0, 0, 0);
-        btFav = new QPushButton(widget1);
+        btFav = new QPushButton(layoutWidget2);
         btFav->setObjectName(QStringLiteral("btFav"));
 
         horizontalLayout_7->addWidget(btFav);
 
-        btUnsetFav = new QPushButton(widget1);
+        btUnsetFav = new QPushButton(layoutWidget2);
         btUnsetFav->setObjectName(QStringLiteral("btUnsetFav"));
 
         horizontalLayout_7->addWidget(btUnsetFav);

@@ -26,7 +26,20 @@ MainWindowTree::MainWindowTree(QWidget *parent) :
 
     ui->treeWidget->setHeaderLabels(names);
 
+    fillCombo();
     on_btSearch_clicked();
+}
+
+void MainWindowTree::fillCombo(){
+
+
+    vector<QString> langs = db->getLangs();
+
+    ui->cmbLang->clear();
+
+    ui->cmbLang->addItem("");
+    for(auto val: langs)
+        ui->cmbLang->addItem(val);
 }
 
 MainWindowTree::~MainWindowTree()
@@ -37,8 +50,21 @@ MainWindowTree::~MainWindowTree()
 void MainWindowTree::AddRoot(vector <BookRecord> recs, QString lang)
 {
     QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget);
-
     itm->setText(0, lang);
+
+    fillColor(itm);
+
+
+    ui->treeWidget->addTopLevelItem(itm);
+    for(int i=0; i<recs.size(); i++)
+        AddChild(itm, recs[i]);
+
+
+
+}
+
+
+void MainWindowTree::fillColor(QTreeWidgetItem *itm){
 
 
     QColor color(137, 199, 182);
@@ -57,13 +83,6 @@ void MainWindowTree::AddRoot(vector <BookRecord> recs, QString lang)
     QColor color3(121, 152, 201);
     QBrush fv1(color3);
     itm->setBackground(6, fv1);
-
-    ui->treeWidget->addTopLevelItem(itm);
-
-
-    for(int i=0; i<recs.size(); i++)
-        AddChild(itm, recs[i]);
-
 
 
 }
@@ -101,37 +120,6 @@ void MainWindowTree::AddChild(QTreeWidgetItem *parent, BookRecord rec)
     parent->addChild(itm);
 }
 
-bool MainWindowTree::contains(vector<QString> langs, QString lang){
-
-         for(int k=0; k<langs.size(); k++){
-
-             if(lang == langs[k])
-                 return true;
-
-
-         }
-
-         return false;
-
-
-}
-
-vector<QString> MainWindowTree::getLangsFromRecs(vector<BookRecord> recs){
-    vector<QString> langs;
-
-
-    for(int i=0; i<recs.size(); i++){
-
-        QString tmp = recs[i].Lang.toUpper();
-
-        if(!contains(langs, tmp))
-             langs.push_back(tmp);
-
-    }
-
-    return langs;
-}
-
 
 vector<BookRecord> MainWindowTree::filterRecsByLang(vector<BookRecord> recs, QString lang){
 
@@ -150,37 +138,33 @@ vector<BookRecord> MainWindowTree::filterRecsByLang(vector<BookRecord> recs, QSt
 
 void MainWindowTree::on_btSearch_clicked()
 {
-    ui->treeWidget->clear();
 
-       BookRecord rec;
+    vector<BookRecord> recs;
+    BookRecord rec;
+    vector<QString> langs;
 
-       vector<BookRecord> recs; //  TODO: rename
+        // Filling criterias
+       rec.Title = ui->txtTitle->text();
+       rec.Author = ui->txtAuthor->text();
+       rec.Lang = ui->cmbLang->currentText();
+       if(ui->checkFav->isChecked()) rec.Fav = "1";
 
-       rec.Title = "%" + ui->txtTitle->text() + "%";
-       rec.Author = "%" +  ui->txtAuthor->text() + "%";
-       rec.Lang = "%" +  ui->txtLang->text() + "%";
-       rec.Price = "%" +  ui->txtPrice->text() + "%";
-       rec.Year = "%" +  ui->txtYear->text() + "%";
-       rec.Fav = "%%";
+       QString priceFrom = ui->sbPriceFrom->text();
+       QString priceTo = ui->sbPriceTo->text();
+       QString yearFrom = ui->sbYearFrom->text();
+       QString yearTo = ui->sbYearTo->text();
 
-       if(ui->checkFav->isChecked()) rec.Fav = "%1%";
+       recs = db->search(rec, priceFrom, priceTo, yearFrom, yearTo);
+       langs = db->getLangs();
 
+       ui->treeWidget->clear();
 
-       recs = db->search(rec);
-
-       vector<QString> langs;
-       langs = getLangsFromRecs(recs);
-
-
-
-       for(int i=0; i<langs.size(); i++){
+       for(auto lang: langs){
             vector<BookRecord> tmp;
-            tmp = filterRecsByLang(recs, langs[i]);
+            tmp = filterRecsByLang(recs, lang);
 
-           AddRoot(tmp, langs[i]);
-
+            if(tmp.size()) AddRoot(tmp, lang);
        }
-
 }
 
 void MainWindowTree::on_btAdd_clicked()
@@ -204,6 +188,9 @@ void MainWindowTree::on_btAdd_clicked()
 
     }
 
+
+
+    fillCombo();
     on_btSearch_clicked();
 
 
@@ -230,6 +217,8 @@ void MainWindowTree::on_btDelete_clicked()
 
     db->remove(getSelectedId());
 
+
+    fillCombo();
     on_btSearch_clicked();
 
 }
@@ -246,6 +235,12 @@ void MainWindowTree::on_btFav_clicked()
 void MainWindowTree::on_btUnsetFav_clicked()
 {
     db->unsetFav(getSelectedId());
+    on_btSearch_clicked();
+
+}
+
+void MainWindowTree::on_cmbLang_currentIndexChanged(int index)
+{
     on_btSearch_clicked();
 
 }

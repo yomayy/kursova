@@ -23,12 +23,12 @@ public:
 
     QString getSelectedId();
 
-    bool contains(vector<QString> langs, QString lang);
-    vector<QString> getLangsFromRecs(vector<BookRecord> recs);
+    void fillCombo();
+
     vector<BookRecord> filterRecsByLang(vector<BookRecord> recs, QString lang);
 
 
-
+    void fillColor(QTreeWidgetItem *itm);
 
     explicit MainWindowTree(QWidget *parent = 0);
     ~MainWindowTree();
@@ -43,6 +43,8 @@ private slots:
     void on_btFav_clicked();
 
     void on_btUnsetFav_clicked();
+
+    void on_cmbLang_currentIndexChanged(int index);
 
 private:
     Ui::MainWindowTree *ui;

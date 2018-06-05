@@ -43,6 +43,5 @@ HEADERS += \
     debug.h
 
 FORMS += \
-        mainwindow.ui \
     mainwindowtree.ui \
     dialogadd.ui

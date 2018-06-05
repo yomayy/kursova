@@ -19,6 +19,7 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpinBox>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -40,11 +41,11 @@ public:
     QLineEdit *DtxtLang;
     QHBoxLayout *horizontalLayout_4;
     QLabel *label_4;
-    QLineEdit *DtxtPrice;
+    QSpinBox *sbPrice;
     QHBoxLayout *horizontalLayout_5;
     QLabel *label_5;
-    QLineEdit *DtxtYear;
-    QWidget *widget;
+    QSpinBox *sbYear;
+    QWidget *layoutWidget1;
     QHBoxLayout *horizontalLayout_6;
     QPushButton *DbtCancel;
     QPushButton *DbtOk;
@@ -56,7 +57,7 @@ public:
         DialogAdd->resize(400, 300);
         layoutWidget = new QWidget(DialogAdd);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(80, 30, 219, 161));
+        layoutWidget->setGeometry(QRect(80, 30, 219, 163));
         verticalLayout = new QVBoxLayout(layoutWidget);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
@@ -112,10 +113,12 @@ public:
 
         horizontalLayout_4->addWidget(label_4);
 
-        DtxtPrice = new QLineEdit(layoutWidget);
-        DtxtPrice->setObjectName(QStringLiteral("DtxtPrice"));
+        sbPrice = new QSpinBox(layoutWidget);
+        sbPrice->setObjectName(QStringLiteral("sbPrice"));
+        sbPrice->setMinimum(1);
+        sbPrice->setMaximum(10000);
 
-        horizontalLayout_4->addWidget(DtxtPrice);
+        horizontalLayout_4->addWidget(sbPrice);
 
 
         verticalLayout->addLayout(horizontalLayout_4);
@@ -127,26 +130,29 @@ public:
 
         horizontalLayout_5->addWidget(label_5);
 
-        DtxtYear = new QLineEdit(layoutWidget);
-        DtxtYear->setObjectName(QStringLiteral("DtxtYear"));
+        sbYear = new QSpinBox(layoutWidget);
+        sbYear->setObjectName(QStringLiteral("sbYear"));
+        sbYear->setMinimum(1900);
+        sbYear->setMaximum(2018);
+        sbYear->setValue(2018);
 
-        horizontalLayout_5->addWidget(DtxtYear);
+        horizontalLayout_5->addWidget(sbYear);
 
 
         verticalLayout->addLayout(horizontalLayout_5);
 
-        widget = new QWidget(DialogAdd);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(200, 240, 168, 27));
-        horizontalLayout_6 = new QHBoxLayout(widget);
+        layoutWidget1 = new QWidget(DialogAdd);
+        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(200, 240, 168, 27));
+        horizontalLayout_6 = new QHBoxLayout(layoutWidget1);
         horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
         horizontalLayout_6->setContentsMargins(0, 0, 0, 0);
-        DbtCancel = new QPushButton(widget);
+        DbtCancel = new QPushButton(layoutWidget1);
         DbtCancel->setObjectName(QStringLiteral("DbtCancel"));
 
         horizontalLayout_6->addWidget(DbtCancel);
 
-        DbtOk = new QPushButton(widget);
+        DbtOk = new QPushButton(layoutWidget1);
         DbtOk->setObjectName(QStringLiteral("DbtOk"));
 
         horizontalLayout_6->addWidget(DbtOk);

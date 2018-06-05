@@ -155,7 +155,7 @@ TARGET        = tree
 first: all
 ####### Build rules
 
-$(TARGET): ui_mainwindow.h ui_mainwindowtree.h ui_dialogadd.h $(OBJECTS)  
+$(TARGET): ui_mainwindowtree.h ui_dialogadd.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: ../tree.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-clang/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -330,7 +330,7 @@ distdir: FORCE
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../dbmanager.h ../bookrecord.h ../mainwindowtree.h ../dialogadd.h ../debug.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../main.cpp ../dbmanager.cpp ../bookrecord.cpp ../mainwindowtree.cpp ../dialogadd.cpp ../debug.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../mainwindow.ui ../mainwindowtree.ui ../dialogadd.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../mainwindowtree.ui ../dialogadd.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -381,13 +381,9 @@ moc_dialogadd.cpp: ../dialogadd.h \
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindow.h ui_mainwindowtree.h ui_dialogadd.h
+compiler_uic_make_all: ui_mainwindowtree.h ui_dialogadd.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindow.h ui_mainwindowtree.h ui_dialogadd.h
-ui_mainwindow.h: ../mainwindow.ui \
-		/usr/lib/x86_64-linux-gnu/qt5/bin/uic
-	/usr/lib/x86_64-linux-gnu/qt5/bin/uic ../mainwindow.ui -o ui_mainwindow.h
-
+	-$(DEL_FILE) ui_mainwindowtree.h ui_dialogadd.h
 ui_mainwindowtree.h: ../mainwindowtree.ui \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/uic
 	/usr/lib/x86_64-linux-gnu/qt5/bin/uic ../mainwindowtree.ui -o ui_mainwindowtree.h

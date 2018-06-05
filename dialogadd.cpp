@@ -19,10 +19,10 @@ QString DialogAdd::getDtxtLang(){
     return ui->DtxtLang->text();
 }
 QString DialogAdd::getDtxtPrice(){
-    return ui->DtxtPrice->text();
+    return ui->sbPrice->text();
 }
 QString DialogAdd::getDtxtYear(){
-    return ui->DtxtYear->text();
+    return ui->sbYear->text();
 }
 
 bool DialogAdd::getResult(){

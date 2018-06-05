@@ -1,6 +1,26 @@
 ﻿#include "dbmanager.h"
 
 
+bool DbManager::contains(vector<QString> langs, QString lang){
+         for(int k=0; k<langs.size(); k++){
+             if(lang == langs[k])
+                 return true;
+         }
+         return false;
+}
+
+vector<QString> DbManager::getLangsFromRecs(vector<BookRecord> recs){
+    vector<QString> langs;
+    for(int i=0; i<recs.size(); i++){
+        QString tmp = recs[i].Lang.toUpper();
+        if(!contains(langs, tmp))
+             langs.push_back(tmp);
+    }
+
+    return langs;
+}
+
+
 DbManager::DbManager(QString path)
 {
     m_db = QSqlDatabase::addDatabase("QSQLITE");
@@ -22,6 +42,20 @@ DbManager::~DbManager()
         m_db.close();
 
 }
+
+vector<QString> DbManager::getLangs(){
+    vector<QString> result;
+
+
+    BookRecord tmp;
+    vector<BookRecord> recs = search(tmp, "0", "10000", "0", "10000");
+
+    result = getLangsFromRecs(recs);
+
+    return result;
+
+}
+
 
 bool DbManager::isOpen()
 {
@@ -126,25 +160,37 @@ bool DbManager::exist(QString id)
 }
 
 
-vector<BookRecord> DbManager::search(BookRecord rec){
+vector<BookRecord> DbManager::search(BookRecord rec, QString priceFrom, QString priceTo, QString yearFrom, QString yearTo){
 
     vector<BookRecord> recs;
 
     bool result;
-    QString txterr;
-    QTextStream err(&txterr);
+    //QString txterr;
+    //QTextStream err(&txterr);
+
     QSqlQuery query;
 
-    query.prepare("SELECT * FROM kursovaya WHERE Title LIKE :title AND Author LIKE :author AND Lang LIKE :lang AND Price LIKE :price AND Year LIKE :year AND Fav LIKE :fav");
-    query.bindValue(":title", rec.Title);
+
+    rec.Author = "%" + rec.Author + "%";
+    rec.Title = "%" + rec.Title+ "%";
+    rec.Lang = "%" + rec.Lang + "%";
+    rec.Fav = "%" + rec.Fav + "%";
+
+    query.prepare("SELECT * FROM kursovaya WHERE Title LIKE :title AND Author LIKE :author AND Lang LIKE :lang AND (Price BETWEEN :priceFrom AND :priceTo) AND (Year BETWEEN :yearFrom AND :yearTo) AND Fav LIKE :fav");
+     query.bindValue(":title", rec.Title);
     query.bindValue(":author", rec.Author);
     query.bindValue(":lang", rec.Lang);
-    query.bindValue(":price", rec.Price);
-    query.bindValue(":year", rec.Year);
+    query.bindValue(":priceFrom", priceFrom);
+    query.bindValue(":priceTo", priceTo);
+    query.bindValue(":yearFrom", yearFrom);
+    query.bindValue(":yearTo", yearTo);
     query.bindValue(":fav", rec.Fav);
 
 
     result = query.exec();
+
+    debugPrint(query.executedQuery());
+    /*
     if(!result)
     {
         err << "Search book failed: " << endl;
@@ -154,6 +200,7 @@ vector<BookRecord> DbManager::search(BookRecord rec){
         err.flush();
         debugPrint(txterr);
     }
+*/
 
         while(query.next()){
             QString id = query.value(0).toString();
